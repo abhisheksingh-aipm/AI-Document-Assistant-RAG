@@ -60,7 +60,7 @@ for doc in documents.values():
 # =====================================
 st.subheader("📄 Upload Documents")
 uploaded_files = st.file_uploader(
-    ""Drag & drop PDF files here or click to browse"",
+    "Drag & drop PDF files here or click to browse",
     type=["pdf"],
     accept_multiple_files=True
 )
