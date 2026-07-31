@@ -29,21 +29,25 @@ if "chat_history" not in st.session_state:
 # Title
 # =====================================
 
-st.title("🤖 AI Document Assistant")
+st.title("AI Knowledge Assistant")
+st.markdown(
+    "Search, understand, and chat with your documents using AI-powered semantic search."
+)
 
-st.write("Welcome to your first AI Product!")
-
-st.write("Upload one or more PDFs and ask questions.")
+st.caption("Upload documents and ask questions using AI-powered semantic search.")
 
 # =====================================
 # Sidebar
 # =====================================
 
-st.sidebar.title("📚 Knowledge Base")
+st.sidebar.title("AI Knowledge Base")
 
 documents = get_uploaded_documents()
 
-st.sidebar.write(f"Total PDFs: {len(documents)}")
+st.sidebar.metric(
+    "Documents",
+    len(documents)
+)
 
 for doc in documents.values():
 
@@ -54,9 +58,9 @@ for doc in documents.values():
 # =====================================
 # Upload PDFs
 # =====================================
-
+st.subheader("📄 Upload Documents")
 uploaded_files = st.file_uploader(
-    "Upload your PDFs",
+    ""Drag & drop PDF files here or click to browse"",
     type=["pdf"],
     accept_multiple_files=True
 )
@@ -67,34 +71,34 @@ if uploaded_files:
 
         st.divider()
 
-        st.subheader(f"📄 {uploaded_file.name}")
-
+        st.subheader("Uploaded Document")
+        st.write(f"**{uploaded_file.name}**")
         document_hash = generate_document_hash(
             uploaded_file
         )
 
         if document_exists(document_hash):
 
-            st.success("✅ Already Exists")
+            st.info("Document already indexed and ready for search.")
 
         else:
 
-            st.info("📄 New PDF")
+                st.info("Processing new document...")
 
-            full_text = process_pdf(uploaded_file)
+                full_text = process_pdf(uploaded_file)
 
-            chunks = chunk_text(full_text)
+                chunks = chunk_text(full_text)
 
-            embeddings = create_embeddings(chunks)
+                embeddings = create_embeddings(chunks)
 
-            store_embeddings(
+                store_embeddings(
                 document_hash,
                 uploaded_file.name,
                 chunks,
                 embeddings
             )
 
-            st.success("✅ Stored Successfully")
+                st.success("Document indexed Successfully")
 
     st.divider()
 
