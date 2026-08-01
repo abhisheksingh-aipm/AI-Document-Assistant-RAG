@@ -1,4 +1,4 @@
-# 🤖 AI Document Assistant (RAG)
+# 🤖ContextIQ – AI RAG Assistant
 
 An AI-powered Document Question Answering System built using **Retrieval-Augmented Generation (RAG)**.
 
